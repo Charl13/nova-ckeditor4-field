@@ -1,9 +1,14 @@
 <template>
-    <span v-html="field.value"></span>
+    <span v-html="value"></span>
 </template>
 
 <script>
-    export default {
-        props: ['resourceName', 'field'],
+export default {
+    props: ['resourceName', 'field'],
+    computed: {
+        value() {
+            return this.field.value[this.field.indexLocale] || '—'
+        }
     }
+}
 </script>
