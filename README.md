@@ -1,20 +1,20 @@
-# Laravel Nova CKEditor 4 Field
+# Laravel Nova CKEditor 4 Field (Translatable)
 
-This nova package allows you to use [CKEditor 4](https://ckeditor.com/ckeditor-4/) for text areas using [Vue Ckeditor2](https://vue-ckeditor2.surge.sh/)
-
-![CKEditor Form Field](docs/form-field.png)
+This package is a fork from [waynestate/nova-ckeditor4-field](https://github.com/waynestate/nova-ckeditor4-field) extended with translation functionalities for [dimsav/laravel-translatable](https://github.com/dimsav/laravel-translatable). The translation functionalities are inspired from [yeswedev/nova-translatable](https://framagit.org/yeswedev/ywd_nova-translatable).
 
 ## Installation
 
 You can install the package into a Laravel application that uses [Nova](https://nova.laravel.com) via composer:
 
 ```bash
-composer require waynestate/nova-ckeditor4-field
+composer require Charl13/nova-ckeditor4-field
 ```
 
-By default the CKEditor 4 instance used is the latest (4.10.1) Standard All version. If you wish to use a different CKEditor 4 you can do so by editing the configuration.
-
 ## Usage
+
+For documentation refer to the original package [waynestate/nova-ckeditor4-field](https://github.com/waynestate/nova-ckeditor4-field).
+
+Additionally this field can be translated:
 
 ```php
 <?php
@@ -32,77 +32,13 @@ class Article extends Resource
         return [
             // ...
 
-            CKEditor::make('Body', 'body');
-                
+            CKEditor::make('Body', 'body')->locales([
+                'en' => 'English',
+                'de' => 'German',
+            ]);
+
             // ...
         ];
     }
 }
 ```
-
-## Overriding Config Values
-
-To change any of config values, publish a config file:
-
-```bash
-php artisan vendor:publish --tag=config --provider=Waynestate\\Nova\\CKEditorFieldServiceProvider
-```
-
-## Customization
-
-You can change the [configuration options](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html) of the CKEditor instance by either editing the published config file at `nova.ckeditor-field.options`
-
-```php
-    /*
-    |--------------------------------------------------------------------------------
-    | CKEditor Options
-    |--------------------------------------------------------------------------------
-    |
-    | To view a list of all available options checkout the CKEditor API documentation
-    | https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
-    |
-    */
-    'options' => [
-        'toolbar' => [
-            ['Source','-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
-            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-            ['Image','Table','HorizontalRule','SpecialChar','PageBreak'],
-            '/',
-            ['Bold','Italic','Strike','-','Subscript','Superscript'],
-            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
-            ['JustifyLeft','JustifyCenter','JustifyRight'],
-            ['Link','Unlink','Anchor'],
-            '/',
-            ['Format','FontSize'],
-            ['Maximize', 'ShowBlocks','-','About']
-        ]
-    ],
-```
-
-or you can pass it with the `options` method using:
-
-```php
-public function fields(Request $request)
-{
-    return [
-        // ...
-
-        CKEditor::make('Body', 'body')->options([
-            'height' => 300,
-            'toolbar' => [
-                ['Source','-','Cut','Copy','Paste'],
-            ],
-        ]),
-
-        // ...
-    ];
-}
-```
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
